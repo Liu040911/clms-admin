@@ -46,3 +46,37 @@ jobs:
             ghcr.io/${{ env.IMAGE_NAME }}:${{ env.BUILD_DATE }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  deploy:
+    name: Deploy on Self-Hosted Runner
+    runs-on: [self-hosted, admin-deploy]
+    needs: build-and-push
+    if: ${{ success() && github.event_name == 'workflow_dispatch' }}
+    environment: production
+    concurrency:
+      group: clms-admin-deploy-master
+      cancel-in-progress: true
+    permissions:
+      contents: read
+      packages: read
+
+    steps:
+      - name: Set lower case image name
+        run: |
+          echo "IMAGE_NAME=${REPO,,}" >>${GITHUB_ENV}
+        env:
+          REPO: "${{ github.repository }}"
+
+      - name: Deploy container on runner host
+        env:
+          DEPLOY_PATH: /home/github-runner/actions-runner/deploy
+          DEPLOY_COMPOSE_FILE: docker-compose-prod.yaml
+          DEPLOY_SERVICE: clms-admin
+        run: |
+          set -e
+          cd "$DEPLOY_PATH"
+          export ADMIN_IMAGE="ghcr.io/${IMAGE_NAME}:latest"
+          docker compose -f "$DEPLOY_COMPOSE_FILE" pull "$DEPLOY_SERVICE"
+          docker compose -f "$DEPLOY_COMPOSE_FILE" stop "$DEPLOY_SERVICE"
+          docker compose -f "$DEPLOY_COMPOSE_FILE" up -d "$DEPLOY_SERVICE"
+          docker image prune -f
