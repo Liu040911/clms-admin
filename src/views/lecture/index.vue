@@ -12,6 +12,7 @@ import LectureDetailDialog from "./components/LectureDetailDialog.vue";
 import LectureAuditDialog from "./components/LectureAuditDialog.vue";
 import { ElMessage, ElTag } from "element-plus";
 import { h, onMounted, reactive, ref } from "vue";
+import { useRouter } from "vue-router";
 import dayjs from "dayjs";
 
 defineOptions({
@@ -19,6 +20,8 @@ defineOptions({
 });
 
 type LectureItem = LectureBO;
+
+const router = useRouter();
 
 const pageConfig = reactive({
   loading: false,
@@ -255,12 +258,21 @@ const submitReject = async () => {
 onMounted(() => {
   fetchLectureList();
 });
+
+const handleGoAnalytics = () => {
+  router.push({ path: "/lecture/analytics" });
+};
 </script>
 
 <template>
   <div>
     <el-card shadow="never">
-      <div class="mb-4 text-base font-medium">讲座管理</div>
+      <div class="mb-4 flex items-center justify-between">
+        <div class="text-base font-medium">讲座管理</div>
+        <el-button type="primary" plain @click="handleGoAnalytics">
+          数据分析
+        </el-button>
+      </div>
 
       <MyTable
         v-model="pageConfig.tableData"

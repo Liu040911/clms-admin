@@ -19,6 +19,15 @@ export default {
         title: "讲座列表",
         roles: ["admin"]
       }
+    },
+    {
+      path: "/lecture/analytics",
+      name: "LectureAnalytics",
+      component: () => import("@/views/lecture/analytics.vue"),
+      meta: {
+        title: "讲座分析",
+        roles: ["admin"]
+      }
     }
   ]
 } satisfies RouteConfigsTable;

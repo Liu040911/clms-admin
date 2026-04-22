@@ -58,6 +58,36 @@ export type LectureAuditBO = {
   updateTime?: string;
 };
 
+export type LectureAnalyticsOverviewBO = {
+  totalLectures: number;
+  publishedLectures: number;
+  pendingLectures: number;
+  rejectedLectures: number;
+  finishedLectures: number;
+  cancelledLectures: number;
+  totalRegistrations: number;
+  totalCheckIns: number;
+  totalCancelledRegistrations: number;
+  checkInRate: number;
+  cancelRate: number;
+  avgAttendanceRate: number;
+};
+
+export type LectureAnalyticsTrendPointBO = {
+  time: string;
+  createdCount: number;
+  publishedCount: number;
+  registrationCount: number;
+  checkInCount: number;
+  cancelCount: number;
+};
+
+export type LectureAnalyticsTagTopBO = {
+  tagId: string;
+  tagName: string;
+  metricValue: number;
+};
+
 export type LectureDTO = {
   title: string;
   description: string;
@@ -85,6 +115,29 @@ export type LectureAuditQueryParams = {
   lectureId: string;
   page: number;
   size: number;
+};
+
+export type LectureAnalyticsQueryParams = {
+  startTime?: string;
+  endTime?: string;
+  teacherId?: string;
+  tagId?: string;
+  classId?: string;
+};
+
+export type LectureAnalyticsTrendQueryParams = {
+  startTime?: string;
+  endTime?: string;
+  granularity?: "day" | "week" | "month";
+  teacherId?: string;
+  tagId?: string;
+};
+
+export type LectureAnalyticsTagTopQueryParams = {
+  startTime?: string;
+  endTime?: string;
+  topN?: number;
+  metric?: "registration" | "checkin" | "lectureCount";
 };
 
 export const getLectureList = (params: LectureQueryParams) => {
@@ -143,6 +196,36 @@ export const getLectureAuditList = (params: LectureAuditQueryParams) => {
   return http.request<ApiResponse<BackendPage<LectureAuditBO>>>(
     "get",
     BASE_URL + "/lecture/audit/list",
+    {
+      params
+    }
+  );
+};
+
+export const getLectureAnalyticsOverview = (params: LectureAnalyticsQueryParams) => {
+  return http.request<ApiResponse<LectureAnalyticsOverviewBO>>(
+    "get",
+    BASE_URL + "/lecture/analytics/overview",
+    {
+      params
+    }
+  );
+};
+
+export const getLectureAnalyticsTrend = (params: LectureAnalyticsTrendQueryParams) => {
+  return http.request<ApiResponse<LectureAnalyticsTrendPointBO[]>>(
+    "get",
+    BASE_URL + "/lecture/analytics/trend",
+    {
+      params
+    }
+  );
+};
+
+export const getLectureAnalyticsTagTop = (params: LectureAnalyticsTagTopQueryParams) => {
+  return http.request<ApiResponse<LectureAnalyticsTagTopBO[]>>(
+    "get",
+    BASE_URL + "/lecture/analytics/tag-top",
     {
       params
     }
