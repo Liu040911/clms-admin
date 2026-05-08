@@ -50,9 +50,13 @@ export type TagQueryParams = {
 };
 
 export const getTagList = (params: TagQueryParams) => {
-  return http.request<ApiResponse<BackendPage<TagBO>>>("get", BASE_URL + "/tag/list", {
-    params
-  });
+  return http.request<ApiResponse<BackendPage<TagBO>>>(
+    "get",
+    BASE_URL + "/tag/list",
+    {
+      params
+    }
+  );
 };
 
 export const getTagInfo = (tagId: string) => {

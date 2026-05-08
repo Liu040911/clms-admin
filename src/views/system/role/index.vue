@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import {
-  deleteRole,
-  getRoleList,
-  type RoleBO
-} from "@/api/role";
+import { deleteRole, getRoleList, type RoleBO } from "@/api/role";
 import MyTable from "@/components/myTable/MyTable.vue";
 import { PaginationProps } from "@pureadmin/table";
 import {
