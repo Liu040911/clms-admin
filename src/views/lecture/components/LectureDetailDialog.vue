@@ -31,6 +31,8 @@ const statusTextMap: Record<string, string> = {
   pending: "待审核",
   reject: "已驳回",
   published: "已发布",
+  registering: "报名中",
+  ongoing: "进行中",
   finished: "已结束",
   cancelled: "已取消"
 };
@@ -39,6 +41,8 @@ const statusTagType = computed(
   (): "success" | "warning" | "info" | "danger" => {
     const status = props.lecture?.status;
     if (status === "published") return "success";
+    if (status === "registering") return "success";
+    if (status === "ongoing") return "warning";
     if (status === "pending") return "warning";
     if (status === "reject") return "danger";
     if (status === "cancelled") return "danger";
@@ -100,7 +104,10 @@ const formatTime = (value?: string) => {
             主讲人：{{ lecture.teacherName || lecture.teacherId || "-" }}
           </div>
 
-          <div v-if="(lecture.tags || []).length" class="mb-4 flex flex-wrap gap-2">
+          <div
+            v-if="(lecture.tags || []).length"
+            class="mb-4 flex flex-wrap gap-2"
+          >
             <el-tag
               v-for="tag in lecture.tags || []"
               :key="tag.id"
@@ -160,9 +167,9 @@ const formatTime = (value?: string) => {
 }
 
 .cover-wrapper {
-  border-radius: 12px;
   overflow: hidden;
   background: #f3f4f6;
+  border-radius: 12px;
 }
 
 .cover-image {
@@ -172,11 +179,11 @@ const formatTime = (value?: string) => {
 }
 
 .image-placeholder {
-  width: 100%;
-  height: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 260px;
   color: #9ca3af;
   background: #f3f4f6;
 }
@@ -189,9 +196,9 @@ const formatTime = (value?: string) => {
 }
 
 .intro-panel {
-  border-radius: 12px;
-  background: #f3f4f6;
   padding: 14px 16px;
+  background: #f3f4f6;
+  border-radius: 12px;
 }
 
 .paragraph {
@@ -205,11 +212,11 @@ const formatTime = (value?: string) => {
 }
 
 .time-panel {
+  padding: 14px 16px;
+  line-height: 1.9;
+  color: #374151;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
-  padding: 14px 16px;
-  color: #374151;
-  line-height: 1.9;
 }
 
 .time-panel p {
@@ -217,21 +224,21 @@ const formatTime = (value?: string) => {
 }
 
 .remaining-panel {
-  border-radius: 12px;
-  background: #eff6ff;
-  color: #1d4ed8;
   padding: 14px 16px;
+  color: #1d4ed8;
+  background: #eff6ff;
+  border-radius: 12px;
 }
 
 .reject-panel {
-  border-radius: 12px;
-  background: #fef2f2;
   padding: 14px 16px;
+  background: #fef2f2;
+  border-radius: 12px;
 }
 
 .reject-text {
   margin: 0;
-  color: #b91c1c;
   line-height: 1.75;
+  color: #b91c1c;
 }
 </style>

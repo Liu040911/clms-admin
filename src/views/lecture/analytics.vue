@@ -12,7 +12,14 @@ import {
 import { ElMessage } from "element-plus";
 import dayjs from "dayjs";
 import * as echarts from "echarts";
-import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref } from "vue";
+import {
+  computed,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  reactive,
+  ref
+} from "vue";
 
 defineOptions({
   name: "LectureAnalytics"
@@ -197,8 +204,14 @@ const fetchAll = async () => {
       getLectureAnalyticsTagTop({ ...params, metric: metric.value, topN: 10 })
     ]);
 
-    if (overviewRes.code !== 200 || trendRes.code !== 200 || tagTopRes.code !== 200) {
-      throw new Error(overviewRes.msg || trendRes.msg || tagTopRes.msg || "获取分析数据失败");
+    if (
+      overviewRes.code !== 200 ||
+      trendRes.code !== 200 ||
+      tagTopRes.code !== 200
+    ) {
+      throw new Error(
+        overviewRes.msg || trendRes.msg || tagTopRes.msg || "获取分析数据失败"
+      );
     }
 
     Object.assign(overview, overviewRes.data);
@@ -261,7 +274,9 @@ onBeforeUnmount(() => {
             <el-option label="签到热度" value="checkin" />
             <el-option label="讲座数量" value="lectureCount" />
           </el-select>
-          <el-button type="primary" :loading="loading" @click="fetchAll">刷新数据</el-button>
+          <el-button type="primary" :loading="loading" @click="fetchAll"
+            >刷新数据</el-button
+          >
         </div>
       </div>
 
@@ -280,12 +295,16 @@ onBeforeUnmount(() => {
       </el-card>
 
       <el-card shadow="never" class="chart-card wide">
-        <template #header>讲座趋势分析（{{ metricLabelMap[metric] }}）</template>
+        <template #header
+          >讲座趋势分析（{{ metricLabelMap[metric] }}）</template
+        >
         <div ref="trendRef" class="chart-box" />
       </el-card>
 
       <el-card shadow="never" class="chart-card wide">
-        <template #header>标签热度 Top10（{{ metricLabelMap[metric] }}）</template>
+        <template #header
+          >标签热度 Top10（{{ metricLabelMap[metric] }}）</template
+        >
         <div ref="tagTopRef" class="chart-box" />
       </el-card>
     </div>
@@ -301,9 +320,9 @@ onBeforeUnmount(() => {
 
 .toolbar {
   display: flex;
+  gap: 12px;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
   margin-bottom: 14px;
 }
 
@@ -314,8 +333,8 @@ onBeforeUnmount(() => {
 
 .filters {
   display: flex;
-  align-items: center;
   gap: 10px;
+  align-items: center;
 }
 
 .kpi-grid {
@@ -325,21 +344,21 @@ onBeforeUnmount(() => {
 }
 
 .kpi-item {
+  padding: 10px 12px;
   background: #f8fafc;
   border-radius: 8px;
-  padding: 10px 12px;
 }
 
 .kpi-label {
-  color: #64748b;
   font-size: 13px;
+  color: #64748b;
 }
 
 .kpi-value {
-  color: #0f172a;
+  margin-top: 4px;
   font-size: 20px;
   font-weight: 700;
-  margin-top: 4px;
+  color: #0f172a;
 }
 
 .chart-grid {
