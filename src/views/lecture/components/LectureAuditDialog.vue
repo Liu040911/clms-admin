@@ -52,6 +52,7 @@ const statusTextMap: Record<string, string> = {
   reject: "已驳回",
   published: "已发布",
   registering: "报名中",
+  ready: "待开始",
   ongoing: "进行中",
   finished: "已结束",
   cancelled: "已取消"
@@ -71,6 +72,7 @@ const statusTagTypeMap: Record<
   reject: "danger",
   published: "success",
   registering: "success",
+  ready: "warning",
   ongoing: "warning",
   finished: "info",
   cancelled: "danger"

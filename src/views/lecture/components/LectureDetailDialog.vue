@@ -32,6 +32,7 @@ const statusTextMap: Record<string, string> = {
   reject: "已驳回",
   published: "已发布",
   registering: "报名中",
+  ready: "待开始",
   ongoing: "进行中",
   finished: "已结束",
   cancelled: "已取消"
@@ -42,6 +43,7 @@ const statusTagType = computed(
     const status = props.lecture?.status;
     if (status === "published") return "success";
     if (status === "registering") return "success";
+    if (status === "ready") return "warning";
     if (status === "ongoing") return "warning";
     if (status === "pending") return "warning";
     if (status === "reject") return "danger";
