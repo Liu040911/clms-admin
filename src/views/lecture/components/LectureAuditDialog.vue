@@ -2,10 +2,7 @@
 import { computed, reactive, ref, watch } from "vue";
 import dayjs from "dayjs";
 import { PaginationProps } from "@pureadmin/table";
-import {
-  getLectureAuditList,
-  type LectureAuditBO
-} from "@/api/lecture";
+import { getLectureAuditList, type LectureAuditBO } from "@/api/lecture";
 import { ElMessage } from "element-plus";
 
 defineOptions({
@@ -55,6 +52,7 @@ const statusTextMap: Record<string, string> = {
   reject: "已驳回",
   published: "已发布",
   registering: "报名中",
+  ready: "待开始",
   ongoing: "进行中",
   finished: "已结束",
   cancelled: "已取消"
@@ -71,6 +69,7 @@ const statusTagTypeMap: Record<string, "success" | "warning" | "info" | "danger"
   reject: "danger",
   published: "success",
   registering: "warning",
+  ready: "warning",
   ongoing: "success",
   finished: "info",
   cancelled: "danger"
@@ -169,24 +168,45 @@ watch(
 
         <el-table-column prop="auditAction" label="审核动作" width="120">
           <template #default="scope">
-            <el-tag :type="getActionTagType(scope.row.auditAction)" effect="light">
-              {{ actionTextMap[scope.row.auditAction] || scope.row.auditAction || "-" }}
+            <el-tag
+              :type="getActionTagType(scope.row.auditAction)"
+              effect="light"
+            >
+              {{
+                actionTextMap[scope.row.auditAction] ||
+                scope.row.auditAction ||
+                "-"
+              }}
             </el-tag>
           </template>
         </el-table-column>
 
         <el-table-column prop="beforeStatus" label="审核前状态" width="140">
           <template #default="scope">
-            <el-tag :type="getStatusTagType(scope.row.beforeStatus)" effect="light">
-              {{ statusTextMap[scope.row.beforeStatus] || scope.row.beforeStatus || "-" }}
+            <el-tag
+              :type="getStatusTagType(scope.row.beforeStatus)"
+              effect="light"
+            >
+              {{
+                statusTextMap[scope.row.beforeStatus] ||
+                scope.row.beforeStatus ||
+                "-"
+              }}
             </el-tag>
           </template>
         </el-table-column>
 
         <el-table-column prop="afterStatus" label="审核后状态" width="140">
           <template #default="scope">
-            <el-tag :type="getStatusTagType(scope.row.afterStatus)" effect="light">
-              {{ statusTextMap[scope.row.afterStatus] || scope.row.afterStatus || "-" }}
+            <el-tag
+              :type="getStatusTagType(scope.row.afterStatus)"
+              effect="light"
+            >
+              {{
+                statusTextMap[scope.row.afterStatus] ||
+                scope.row.afterStatus ||
+                "-"
+              }}
             </el-tag>
           </template>
         </el-table-column>
@@ -197,7 +217,12 @@ watch(
           </template>
         </el-table-column>
 
-        <el-table-column prop="reason" label="原因" min-width="220" show-overflow-tooltip>
+        <el-table-column
+          prop="reason"
+          label="原因"
+          min-width="220"
+          show-overflow-tooltip
+        >
           <template #default="scope">
             {{ scope.row.reason || "-" }}
           </template>

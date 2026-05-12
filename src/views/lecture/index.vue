@@ -54,6 +54,7 @@ const statusTextMap: Record<string, string> = {
   reject: "已驳回",
   published: "已发布",
   registering: "报名中",
+  ready: "待开始",
   ongoing: "进行中",
   finished: "已结束",
   cancelled: "已取消"
@@ -68,6 +69,7 @@ const statusTagTypeMap: Record<
   reject: "danger",
   published: "success",
   registering: "warning",
+  ready: "warning",
   ongoing: "success",
   finished: "info",
   cancelled: "danger"
@@ -91,7 +93,10 @@ const formatTime = (value?: string) => {
 const formatLectureTags = (row: LectureItem) => {
   const tags = row.tags || [];
   if (tags.length === 0) return "-";
-  return tags.map(tag => tag.name).filter(Boolean).join(" / ");
+  return tags
+    .map(tag => tag.name)
+    .filter(Boolean)
+    .join(" / ");
 };
 
 const columns: TableColumns[] = [
@@ -377,9 +382,9 @@ const handleGoAnalytics = () => {
 
 <style scoped>
 .lecture-status-tag {
-  border-radius: 9999px;
-  padding: 0 10px;
-  min-width: 76px;
   justify-content: center;
+  min-width: 76px;
+  padding: 0 10px;
+  border-radius: 9999px;
 }
 </style>

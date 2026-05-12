@@ -86,7 +86,9 @@ const tagTypeTextMap: Record<string, string> = {
 
 const formatTime = (value?: string) => {
   if (!value) return "-";
-  return dayjs(value).isValid() ? dayjs(value).format("YYYY-MM-DD HH:mm") : value;
+  return dayjs(value).isValid()
+    ? dayjs(value).format("YYYY-MM-DD HH:mm")
+    : value;
 };
 
 const resolveTagIconValue = (row: TagBO) => {
@@ -180,7 +182,8 @@ const fetchTagList = () => {
   getTagList({
     tagName: searchForm.tagName || undefined,
     tagType: (searchForm.tagType as "lecture" | "user" | "common") || undefined,
-    tagStatus: (searchForm.tagStatus as "draft" | "active" | "inactive") || undefined,
+    tagStatus:
+      (searchForm.tagStatus as "draft" | "active" | "inactive") || undefined,
     page: pagination.currentPage,
     size: pagination.pageSize,
     sort: "createTime",
@@ -286,7 +289,9 @@ const submitForm = async () => {
       : await createTag(payload);
 
     if (res.code !== 200) {
-      ElMessage.error(res.msg || (isEditMode.value ? "修改标签失败" : "创建标签失败"));
+      ElMessage.error(
+        res.msg || (isEditMode.value ? "修改标签失败" : "创建标签失败")
+      );
       return;
     }
 
@@ -382,10 +387,20 @@ onMounted(() => {
       >
         <template #customOperation="{ row }">
           <div class="flex flex-nowrap gap-2">
-            <el-button type="primary" plain size="small" @click.stop="openEditDialog(row)">
+            <el-button
+              type="primary"
+              plain
+              size="small"
+              @click.stop="openEditDialog(row)"
+            >
               编辑
             </el-button>
-            <el-button type="danger" plain size="small" @click.stop="removeTag(row)">
+            <el-button
+              type="danger"
+              plain
+              size="small"
+              @click.stop="removeTag(row)"
+            >
               删除
             </el-button>
           </div>
@@ -400,10 +415,18 @@ onMounted(() => {
       >
         <el-form label-width="90px">
           <el-form-item label="标签名称" required>
-            <el-input v-model="formData.tagName" maxlength="100" show-word-limit />
+            <el-input
+              v-model="formData.tagName"
+              maxlength="100"
+              show-word-limit
+            />
           </el-form-item>
           <el-form-item label="标签描述">
-            <el-input v-model="formData.tagDescription" type="textarea" :rows="2" />
+            <el-input
+              v-model="formData.tagDescription"
+              type="textarea"
+              :rows="2"
+            />
           </el-form-item>
           <el-form-item label="标签类型" required>
             <el-select v-model="formData.tagType" style="width: 100%">
@@ -412,8 +435,16 @@ onMounted(() => {
               <el-option label="通用" value="common" />
             </el-select>
           </el-form-item>
-          <el-form-item v-if="formData.tagType === 'lecture'" label="图标库" required>
-            <el-select v-model="formData.icon" style="width: 100%" placeholder="请选择讲座图标">
+          <el-form-item
+            v-if="formData.tagType === 'lecture'"
+            label="图标库"
+            required
+          >
+            <el-select
+              v-model="formData.icon"
+              style="width: 100%"
+              placeholder="请选择讲座图标"
+            >
               <el-option
                 v-for="item in lectureIconOptions"
                 :key="item.value"
@@ -436,7 +467,11 @@ onMounted(() => {
 
         <template #footer>
           <el-button @click="formDialogVisible = false">取消</el-button>
-          <el-button type="primary" :loading="formSubmitting" @click="submitForm">
+          <el-button
+            type="primary"
+            :loading="formSubmitting"
+            @click="submitForm"
+          >
             保存
           </el-button>
         </template>

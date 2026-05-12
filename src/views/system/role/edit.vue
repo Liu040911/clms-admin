@@ -173,8 +173,8 @@ onMounted(() => {
 <style scoped>
 .page-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 16px;
 }
 
@@ -188,23 +188,23 @@ onMounted(() => {
 }
 
 .module-container {
+  display: flex;
+  align-items: flex-start;
+  padding: 14px;
   margin-top: 12px;
   background: var(--el-fill-color-light);
   border-radius: 8px;
-  padding: 14px;
-  display: flex;
-  align-items: flex-start;
 }
 
 .module-title {
   width: 280px;
-  color: var(--el-text-color-primary);
   line-height: 1.5;
+  color: var(--el-text-color-primary);
 }
 
 .module-items {
-  flex: 1;
   display: flex;
+  flex: 1;
   flex-wrap: wrap;
   gap: 8px 0;
 }

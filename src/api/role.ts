@@ -82,34 +82,50 @@ export const getRoleList = (
 };
 
 export const getRoleById = (id: string) => {
-  return http.request<ApiResponse<RoleBO>>("get", BASE_URL + "/admin/role/info", {
-    params: {
-      roleId: id
+  return http.request<ApiResponse<RoleBO>>(
+    "get",
+    BASE_URL + "/admin/role/info",
+    {
+      params: {
+        roleId: id
+      }
     }
-  });
+  );
 };
 
 export const createRole = (data: RoleDTO) => {
-  return http.request<ApiResponse<null>>("post", BASE_URL + "/admin/role/create", {
-    data
-  });
+  return http.request<ApiResponse<null>>(
+    "post",
+    BASE_URL + "/admin/role/create",
+    {
+      data
+    }
+  );
 };
 
 export const updateRole = (id: string, data: RoleDTO) => {
-  return http.request<ApiResponse<null>>("post", BASE_URL + "/admin/role/update", {
-    params: {
-      roleId: id
-    },
-    data
-  });
+  return http.request<ApiResponse<null>>(
+    "post",
+    BASE_URL + "/admin/role/update",
+    {
+      params: {
+        roleId: id
+      },
+      data
+    }
+  );
 };
 
 export const deleteRole = (id: string) => {
-  return http.request<ApiResponse<null>>("post", BASE_URL + "/admin/role/delete", {
-    params: {
-      roleId: id
+  return http.request<ApiResponse<null>>(
+    "post",
+    BASE_URL + "/admin/role/delete",
+    {
+      params: {
+        roleId: id
+      }
     }
-  });
+  );
 };
 
 export const bindPermissionToRole = (roleId: string, data: string[]) => {
