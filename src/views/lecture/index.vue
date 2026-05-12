@@ -53,24 +53,28 @@ const statusTextMap: Record<string, string> = {
   pending: "待审核",
   reject: "已驳回",
   published: "已发布",
+  registering: "报名中",
+  ongoing: "进行中",
   finished: "已结束",
   cancelled: "已取消"
 };
 
 const statusTagTypeMap: Record<
   string,
-  "success" | "warning" | "info" | "danger"
+  "success" | "warning" | "info" | "danger" | ""
 > = {
   draft: "info",
   pending: "warning",
   reject: "danger",
   published: "success",
+  registering: "warning",
+  ongoing: "success",
   finished: "info",
   cancelled: "danger"
 };
 
 const isActionLocked = (status: string) => {
-  return ["reject", "published"].includes(status);
+  return !["pending", "reject"].includes(status);
 };
 
 const getStatusTagType = (status: string) => {
