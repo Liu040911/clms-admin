@@ -48,6 +48,25 @@ export default {
         roles: ["admin"],
         showLink: false
       }
+    },
+    {
+      path: "/system/userMember",
+      name: "SystemUserMember",
+      component: () => import("@/views/system/userMember/index.vue"),
+      meta: {
+        title: "用户管理",
+        roles: ["admin"]
+      }
+    },
+    {
+      path: "/system/userMember/edit",
+      name: "SystemUserMemberEdit",
+      component: () => import("@/views/system/userMember/edit.vue"),
+      meta: {
+        title: "编辑用户",
+        roles: ["admin"],
+        showLink: false
+      }
     }
   ]
 } satisfies RouteConfigsTable;
